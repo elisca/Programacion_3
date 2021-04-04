@@ -52,6 +52,37 @@
                 }
                 echo "</ul>";
             }
-        }		
+        }	
+		
+		public static function VerificarUsuario($usuario){
+			$verifEmail=false;
+
+			foreach(Usuario::$_arrayUsuarios As $k=>$u){
+				#Se comprueba si el email recorrido es el del usuario
+				if($u[2]==$usuario->GetEmail()){
+					$verifEmail=true;
+					#Email comprobado, se verifica si el usuario coincide
+					if($u[0]==$usuario->GetNombre()){
+						#Email y usuario comprobado, se verifica si la clave coincide
+						if($u[1]==$usuario->GetClave()){
+							#Usuario verificado
+							echo "Usuario verificado.<br/>";
+						}
+						else{
+							#Error en los datos, clave incorrecta
+							echo "Error en los datos(clave incorrecta).<br/>";
+						}
+					}
+					else{
+							#Error en los datos, usuario incorrecto
+							echo "Error en los datos(usuario incorrecto).<br/>";
+					}
+				}
+
+				if($verifEmail)
+					return;
+			}
+			echo "El usuario ingresado no existe.<br/>";
+		}
 	}
 ?>

@@ -1,30 +1,42 @@
 <?php
-    require 'usuario.php';
+    require 'producto.php';
 
-    $mPeticion=$_SERVER['REQUEST_METHOD'];
+    $metodoPet=$_SERVER['REQUEST_METHOD'];
+    $arrayProductos=array();
+    $arrayProductos=Producto::leerJSON();
 
-    if($mPeticion=='POST'){
-        if(isset($_POST['nombre']) && isset($_POST['clave']) && isset($_POST['email']) && isset($_FILES['nombre_foto']['name'])){
-            $auxNombre=$_POST['nombre'];
-            $auxClave=$_POST['clave'];
-            $auxEmail=$_POST['email'];
+    if($metodoPet=='POST'){
+        $tmpCodBarra=$_POST['codBarra'];
+        $tmpNombre=$_POST['nombre'];
+        $tmpTipo=$_POST['tipo'];
+        $tmpStock=$_POST['stock'];
+        $tmpPrecio=$_POST['precio'];
 
-            
-            $nombreFoto=$auxNombre . "." . pathinfo($_FILES['nombre_foto']['name'],PATHINFO_EXTENSION);
-            $destinoFoto='./usuario/fotos/' . $nombreFoto;
-            if(move_uploaded_file($_FILES['nombre_foto']['tmp_name'],$destinoFoto))
-                echo "Imagen de usuario " . $auxNombre . " cargada correctamente.<br/>";
-            else
-                echo "No se pudo cargar la imagen del usuario " . $auxNombre . " por un error no definido.<br/>"            ;
-
-            $auxUsuario=new Usuario($auxNombre,$auxClave,$auxEmail,$nombreFoto);
-            
-            Usuario::GuardarUsuario($auxUsuario);
-
-            echo var_dump(Usuario::LeerUsuarios()) . "<br/>";
+        if(strlen($tmpCodBarra)==6 && strlen($tmpNombre)>0 && strlen($tmpTipo)>0 && strlen($tmpStock)>0 && strlen($tmpPrecio)>0){
+            $tmpProducto=new Producto(-1,$tmpCodBarra,
+            $tmpNombre,
+            $tmpTipo,
+            $tmpStock,
+            $tmpPrecio);
+     
+            //Producto existente
+            $id=Producto::ConfirmarProductoExistente($arrayProductos,$tmpProducto);
+            if($id>=0){
+                $arrayProductos[$id]->_stock+=$tmpProducto->_stock;
+                echo "Producto actualizado.<br/>";
+            }
+            //Producto inexistente
+            else{
+                array_push($arrayProductos,$tmpProducto);
+                echo "Producto ingresado.<br/>";
+            }
+            Producto::escribirJSON($arrayProductos);
+        }
+        else{
+            echo "No se pudo registrar producto.<br/>";
         }
     }
     else{
-        echo "Sólo se admiten peticiones por métodos POST.<br/>";
+        echo "Se esperaba petición POST.<br/>";
     }
 ?>

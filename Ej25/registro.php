@@ -13,16 +13,16 @@
         $tmpPrecio=$_POST['precio'];
 
         if(strlen($tmpCodBarra)==6 && strlen($tmpNombre)>0 && strlen($tmpTipo)>0 && strlen($tmpStock)>0 && strlen($tmpPrecio)>0){
-            $tmpProducto=new Producto(-1,$tmpCodBarra,
+            $tmpProducto=new Producto($tmpCodBarra,
             $tmpNombre,
             $tmpTipo,
             $tmpStock,
             $tmpPrecio);
      
             //Producto existente
-            $id=Producto::ConfirmarProductoExistente($arrayProductos,$tmpProducto);
-            if($id>=0){
-                $arrayProductos[$id]->_stock+=$tmpProducto->_stock;
+            $indice=Producto::ConfirmarProductoExistente($arrayProductos,$tmpProducto);
+            if($indice>=0){
+                $arrayProductos[$indice]->_stock+=$tmpProducto->_stock;
                 echo "Producto actualizado.<br/>";
             }
             //Producto inexistente

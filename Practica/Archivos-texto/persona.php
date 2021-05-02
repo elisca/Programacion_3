@@ -19,9 +19,10 @@
         public static function leerPersonas(){
             $arrayPersonas=array();
             
-            $archivo=fopen('./personas.csv','r');
+            $archivo=fopen('./personas.txt','r');
 
-            while($auxDatos=fgetcsv($archivo,0,',','"')){
+            while(!feof($archivo)){
+                $auxDatos=explode(',',fgets($archivo));
                 $auxPers=new Persona($auxDatos[0],$auxDatos[1],$auxDatos[2],$auxDatos[3],$auxDatos[4],$auxDatos[5]);
                 array_push($arrayPersonas,$auxPers);
             }
@@ -32,11 +33,13 @@
         }
 
         public static function guardarPersonas($arrayPersonas){
-            $archivo=fopen('./personas0.csv','w');
+            $archivo=fopen('./personas0.txt','w');
 
+            //Guardar archivo
             foreach($arrayPersonas As $auxPers){
                 $auxDatos=array($auxPers->_id,$auxPers->_nombre,$auxPers->_apellido,$auxPers->_email,$auxPers->_sexo,$auxPers->_ip);
-                fputcsv($archivo,$auxDatos);
+                $texto=implode(',',$auxDatos);
+                fwrite($archivo,$texto . "\r\n");
             }
 
             fclose($archivo);

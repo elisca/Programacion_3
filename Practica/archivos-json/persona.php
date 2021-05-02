@@ -1,40 +1,43 @@
 <?php
     class Persona{
         public $_nombre;
-        public $_apellido;
-        public $_edad;
+        public $_clave;
+        public $_email;
 
-        public function __construct($nombre,$apellido,$edad){
+        public function __construct($nombre,$clave,$email){
             $this->_nombre=$nombre;
-            $this->_apellido=$apellido;
-            $this->_edad=$edad;
+            $this->_clave=$clave;
+            $this->_email=$email;
         }
 
-        public static function leerJSON($ruta){
-            $archivo=fopen($ruta,'r');
-            $array=array();
+        public static function leerPersonas(){
+            $arrayPersonas=array();
+            
+            $archivo=fopen('./personas.json','r');
 
+            //Leer archivo
             while(!feof($archivo)){
-                $auxObj=json_decode(fgets($archivo),true);
-                if($auxObj['_nombre']!=null){
-                    $persona=new Persona($auxObj['_nombre'],$auxObj['_apellido'],$auxObj['_edad']);
-                    array_push($array,$persona);
+                $auxDatos=json_decode(fgets($archivo),true);
+                if($auxDatos!=null){
+                    $auxPers=new Persona($auxDatos['_nombre'],$auxDatos['_clave'],$auxDatos['_email']);
+                    array_push($arrayPersonas,$auxPers);
                 }
             }
 
             fclose($archivo);
-            return $array;
+
+            return $arrayPersonas;
         }
 
-        public static function escribirJSON($array,$ruta){
-            $archivo=fopen($ruta,'w');
+        public static function guardarPersonas($arrayPersonas){
+            $archivo=fopen('./personas0.json','w');
 
-            foreach($array As $p){
-                fwrite($archivo,json_encode($p) . "\r\n");
+            //Escribir archivo
+            foreach($arrayPersonas As $persona){
+                fwrite($archivo,json_encode($persona) . "\r\n");
             }
 
             fclose($archivo);
-            echo "Archivo escrito.<br/>";
         }
     }
 ?>

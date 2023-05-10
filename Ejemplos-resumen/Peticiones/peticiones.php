@@ -25,4 +25,21 @@
 	}
 	else
 	echo "No llegaron datos por petición POST.<br/>";
+
+	public function accionarMetodoPeticion(){
+		$metPeticion=$_SERVER['REQUEST_METHOD'];
+
+		switch($metPeticion){
+			case "GET":
+				break;
+			case "POST":
+				break;
+			case "PUT":
+				break;
+			case "DELETE":
+				break;
+			default:
+				break;
+		}
+	}
 ?>

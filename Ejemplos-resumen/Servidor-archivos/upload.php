@@ -17,4 +17,15 @@
     echo "Nombre del archivo: " . $_FILES["archivo"]["name"] . " Tamaño: " . $_FILES["archivo"]["size"] . " bytes.<br/>";
     echo "Usuario: " . $_POST["usuario"] . "<br/>";
     echo "Ruta: " . $destinoFoto . "<br/>";
+
+    /*
+    #Obtiene la extension de la imagen
+    $extImagen=explode(".",$_FILES["imagen"]["name"]);
+    $extImagen=$extImagen[count($extImagen)-1];
+    $extImagen="." . $extImagen;
+
+    #Setea la ruta y nombre del archivo destino
+    $imagenVenta="ImagenesDeLaVenta/" . $auxPizzaPed->_tipo . "+" . $auxPizzaPed->_sabor . "+" . $dominioUsuario[0] . $extImagen;
+    move_uploaded_file($_FILES["imagen"]["tmp_name"],$imagenVenta);        
+    */
 ?>

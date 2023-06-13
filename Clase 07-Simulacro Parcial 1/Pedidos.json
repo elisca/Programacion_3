@@ -2,3 +2,6 @@
 {"_venta":{"_id":263,"_sabor":"Jamon y Queso","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"usuario@dominio.com","_id":2,"_fecha":"11\/May\/2023","_numero":121}
 {"_venta":{"_id":232,"_sabor":"Jamon y Queso","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"nombre@dominio.com","_id":3,"_fecha":"11\/May\/2023","_numero":835}
 {"_venta":{"_id":393,"_sabor":"Muzzarella","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"nombre@dominio.com","_id":4,"_fecha":"11\/May\/2023","_numero":407}
+{"_venta":{"_id":468,"_sabor":"Muzzarella","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"nombre@dominio.com","_id":5,"_fecha":"16\/May\/2023","_numero":461}
+{"_venta":{"_id":182,"_sabor":"Jamon y Queso","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"usuario@dominio.com.ar","_id":6,"_fecha":"16\/May\/2023","_numero":173}
+{"_venta":{"_id":67,"_sabor":"Jamon y Queso","_precio":1,"_tipo":"piedra","_cantidad":"1"},"_usuario":"usuario@dominio.com.ar","_id":7,"_fecha":"16\/May\/2023","_numero":699}

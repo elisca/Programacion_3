@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "d2ad58ee-5f96-431d-8bb4-6b05dd77c358",
+		"name": "Primer Parcial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Index Helados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Programacion_3/Clase%2008-Parcial%201/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Programacion_3",
+						"Clase%2008-Parcial%201",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Heladería Alta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sabor",
+							"value": "Vainilla",
+							"type": "default"
+						},
+						{
+							"key": "precio",
+							"value": "1000",
+							"type": "default"
+						},
+						{
+							"key": "tipo",
+							"value": "Crema",
+							"type": "default"
+						},
+						{
+							"key": "vaso",
+							"value": "Plastico",
+							"type": "default"
+						},
+						{
+							"key": "stock",
+							"value": "100",
+							"type": "default"
+						},
+						{
+							"key": "imagen",
+							"type": "file",
+							"src": "/C:/xampp/htdocs/Programacion_3/Clase 08-Parcial 1/helado.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/Programacion_3/Clase%2008-Parcial%201/heladeriaAlta.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Programacion_3",
+						"Clase%2008-Parcial%201",
+						"heladeriaAlta.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Helado Consultar",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Alta Venta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "usuario@dominio.com.ar",
+							"type": "default"
+						},
+						{
+							"key": "sabor",
+							"value": "Vainilla",
+							"type": "default"
+						},
+						{
+							"key": "tipo",
+							"value": "Crema",
+							"type": "default"
+						},
+						{
+							"key": "stock",
+							"value": "5",
+							"type": "default"
+						},
+						{
+							"key": "vaso",
+							"value": "Cucurucho",
+							"type": "default"
+						},
+						{
+							"key": "imagen",
+							"type": "file",
+							"src": "/C:/xampp/htdocs/Programacion_3/Clase 08-Parcial 1/helado.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/Programacion_3/Clase%2008-Parcial%201/altaVenta.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Programacion_3",
+						"Clase%2008-Parcial%201",
+						"altaVenta.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Ventas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Programacion_3/Clase%2008-Parcial%201/consultasVentas.php?fecha=16/5/2023&desde_fecha=16/5/2023&hasta_fecha=16/5/2023&usuario=usuario@dominio.com.ar&sabor=Vainilla&vaso=Cucurucho",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Programacion_3",
+						"Clase%2008-Parcial%201",
+						"consultasVentas.php"
+					],
+					"query": [
+						{
+							"key": "fecha",
+							"value": "16/5/2023"
+						},
+						{
+							"key": "desde_fecha",
+							"value": "16/5/2023"
+						},
+						{
+							"key": "hasta_fecha",
+							"value": "16/5/2023"
+						},
+						{
+							"key": "usuario",
+							"value": "usuario@dominio.com.ar"
+						},
+						{
+							"key": "sabor",
+							"value": "Vainilla"
+						},
+						{
+							"key": "vaso",
+							"value": "Cucurucho"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Devolver Helado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "num_pedido",
+							"value": "1",
+							"type": "default"
+						},
+						{
+							"key": "motivo",
+							"value": "Derretido",
+							"type": "default"
+						},
+						{
+							"key": "foto",
+							"type": "file",
+							"src": "/C:/xampp/htdocs/Programacion_3/Clase 08-Parcial 1/cliente-enojado.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/Programacion_3/Clase%2008-Parcial%201/devolverHelado.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Programacion_3",
+						"Clase%2008-Parcial%201",
+						"devolverHelado.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -93,7 +93,7 @@
             }
         }
 
-        public static function guardarImagen($auxUsuario,$auxPizzaPed)
+        public static function guardarImagen($auxUsuario,$auxHeladoPed)
         {
             #Separa el usuario del dominio en el email
             $dominioUsuario=explode("@",$auxUsuario);
@@ -104,18 +104,26 @@
             $extImagen="." . $extImagen;
 
             #Setea la ruta y nombre del archivo destino
-            $imagenVenta="ImagenesDeLaVenta/" . $auxPizzaPed->_tipo . "+" . $auxPizzaPed->_sabor . "+" . $dominioUsuario[0] . $extImagen;
+            $imagenVenta="ImagenesDeHelados/2023/" . $auxHeladoPed->_sabor . "+" . $auxHeladoPed->_tipo . "+" . $dominioUsuario[0] . $extImagen;
             move_uploaded_file($_FILES["imagen"]["tmp_name"],$imagenVenta);        
         }
 
-        public static function contarCantidadVendida()
+        public static function contarCantidadVendida($fecha)
         {
             $cantVendidas=0;
-    
+
+            if(!isset($fecha) || $fecha=="")
+            {
+                $fecha=date(date('d') - 1 . '/n/Y');
+            }
+
             foreach (Pedido::$_pedidos as $vAuxPedido)
             {
                 $vAuxPedido=(array)$vAuxPedido;
-                $cantVendidas+=$vAuxPedido["_venta"]["_cantidad"];
+                if($fecha==$vAuxPedido['_fecha'])
+                {
+                    $cantVendidas+=$vAuxPedido["_venta"]["_stock"];
+                }
             }
     
             return $cantVendidas;
@@ -163,6 +171,27 @@
                }
         }        
 
+        public static function listarVentasPorVaso($auxVaso)
+        {
+            echo "Pedidos realizados por vaso: " . $auxVaso . "<br>";
+
+            if(isset($auxVaso))
+            {
+                foreach (Pedido::$_pedidos as $kPedido => $vPedido)
+                {
+                    $vPedido=(array)$vPedido;
+                    if(!strcmp($vPedido["_venta"]["_vaso"],$auxVaso))
+                    {
+                        echo var_dump($vPedido) . "<br>";
+                    }
+                }
+            }
+            else
+            {
+                echo "Error al intentar listar ventas por vaso, dato incorrecto o vacío en vaso.<br>";
+               }
+        }
+
         public static function listarVentasPorFechas($desdeFecha,$hastaFecha)
         {
             echo "Pedidos realizados desde " . $desdeFecha . " hasta " . $hastaFecha . ":" . "<br>";
@@ -188,6 +217,21 @@
                 if($auxId==$auxPed->_id)
                 {
                     $retorno=$auxPedKey;
+                    break;
+                }
+            }
+
+            return $retorno;
+        }
+
+        public static function buscarPedidoPorId($auxId)
+        {
+            $retorno=-1;
+            
+            foreach (Pedido::$_pedidos as $auxPedKey => $auxPed) {
+                if($auxId==$auxPed->_numero)
+                {
+                    $retorno=$auxId;
                     break;
                 }
             }

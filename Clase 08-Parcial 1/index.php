@@ -1,18 +1,15 @@
 <?php
-    require_once 'pizza.php';
-
-    Pizza::leerJSON();
-
     $metPeticion=$_SERVER['REQUEST_METHOD'];
 
-    switch ($metPeticion)
-    {
+    switch ($metPeticion) {
         case 'GET':
-            $objPizza=new Pizza(-1,$_GET['sabor'],$_GET['tipo'],$_GET['precio'],$_GET['cantidad']);
-            $objPizza->altaStock();
+            require_once 'consultasVentas.php';
             break;
         case 'POST':
+            require_once 'heladeriaAlta.php';
+            require_once 'heladoConsultar.php';
             require_once 'altaVenta.php';
+            require_once 'devolverHelado.php';
             break;
         default:
             echo "Petición no esperada.<br>";

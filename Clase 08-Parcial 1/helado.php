@@ -1,17 +1,18 @@
 <?php
-    class Pizza
+    class Helado
     {
         public $_id;
         public $_sabor;
         public $_precio;
         public $_tipo;
-        public $_cantidad;
+        public $_vaso;
+        public $_stock;
 
-        public static $_pizzasStock=[];
+        public static $_heladosStock=[];
 
-        public function __construct($id,$sabor,$tipo,$precio,$cantidad)
+        public function __construct($id,$sabor,$tipo,$precio,$vaso,$stock)
         {
-            if(isset($sabor) && isset($tipo) && ($tipo=="molde" || $tipo=="piedra") && isset($precio) && $precio>0 && isset($cantidad) && $cantidad>0)
+            if(isset($sabor) && isset($tipo) && ($tipo=="Agua" || $tipo=="Crema") && isset($precio) && $precio>0 && ($vaso=="Cucurucho" || $vaso=="Plastico") && isset($stock) && $stock>0)
             {
                 if($id<0)
                 {
@@ -24,29 +25,30 @@
                 $this->_sabor=$sabor;
                 $this->_precio=$precio;
                 $this->_tipo=$tipo;
-                $this->_cantidad=$cantidad;
-                #echo "Pizza creada.<br>";
+                $this->_vaso=$vaso;
+                $this->_stock=$stock;
+                #echo "Helado creada.<br>";
             }
             else
             {
-                echo "Error al recibir datos para cargar stock de pizzas.<br>";
+                echo "Error al recibir datos para cargar stock de Helados.<br>";
             }
         }
 
         public function altaStock()
         {
-            $auxId=$this->buscarPizza();
+            $auxId=$this->buscarHelado();
 
             if($auxId>=0)
             {
-                Pizza::$_pizzasStock[$auxId]->_precio=$this->_precio;
-                Pizza::$_pizzasStock[$auxId]->_cantidad+=$this->_cantidad;
+                Helado::$_heladosStock[$auxId]->_precio=$this->_precio;
+                Helado::$_heladosStock[$auxId]->_stock+=$this->_stock;
                 $this->guardarJSON();
                 #echo "Actualización pizza exitosa.<br>";
             }
             else
             {
-                array_push(Pizza::$_pizzasStock,$this);
+                array_push(Helado::$_heladosStock,$this);
                 #echo "Alta pizza exitosa.<br>";
             }
             $this->guardarJSON();
@@ -54,17 +56,17 @@
 
         public function descontarStock($devolverStock=false)
         {
-            $auxId=$this->buscarPizza();
+            $auxId=$this->buscarHelado();
 
             if($auxId>=0)
             {
                 if(!$devolverStock)
                 {
-                    Pizza::$_pizzasStock[$auxId]->_cantidad-=$this->_cantidad;
+                    Helado::$_heladosStock[$auxId]->_stock-=$this->_stock;
                 }
                 else
                 {
-                    Pizza::$_pizzasStock[$auxId]->_cantidad+=$this->_cantidad;
+                    Helado::$_heladosStock[$auxId]->_stock+=$this->_stock;
                 }
                 $this->guardarJSON();
                 #echo "Actualización pizza exitosa.<br>";
@@ -76,21 +78,21 @@
             $this->guardarJSON();
         }
 
-        public function buscarPizza()
+        public function buscarHelado()
         {
             $retorno=-1;
 
-            foreach (Pizza::$_pizzasStock as $k => $v)
+            foreach (Helado::$_heladosStock as $k => $v)
             {
                 if(!strcmp($v->_sabor,$this->_sabor) && !strcmp($v->_tipo,$this->_tipo))
                 {
                     $retorno=$k;
-                    #echo "Pizza encontrada.<br>";
+                    #echo "Helado encontrada.<br>";
                     break;
                 }
             }
 
-            #echo "Pizza no encontrada.<br>";
+            #echo "Helado no encontrada.<br>";
             return $retorno;
         }
 
@@ -98,7 +100,7 @@
         {
             $stockSuficiente=false;
 
-            $auxId=$this->buscarPizza();
+            $auxId=$this->buscarHelado();
 
             if($auxId<0)
             {
@@ -106,7 +108,7 @@
             }
             else
             {
-                if($this->_cantidad<=Pizza::$_pizzasStock[$auxId]->_cantidad)
+                if($this->_stock<=Helado::$_heladosStock[$auxId]->_stock)
                 {
                     $stockSuficiente=true;
                     #echo "Si, hay stock.<br>";
@@ -122,11 +124,11 @@
 
         private function guardarJSON()
         {
-            $archivo=fopen("Pizza.json","w");
-            foreach(Pizza::$_pizzasStock As $auxPizza)
+            $archivo=fopen("Helado.json","w");
+            foreach(Helado::$_heladosStock As $auxHelado)
             {
                 #var_dump($auxPizza);
-                fwrite($archivo,json_encode($auxPizza) . "\r\n");
+                fwrite($archivo,json_encode($auxHelado) . "\r\n");
             }
             fclose($archivo);
             #echo "Escritura archivo exitosa.<br>";
@@ -134,15 +136,15 @@
 
         public static function leerJSON()
         {
-            $archivo=fopen('Pizza.json','r');
+            $archivo=fopen('Helado.json','r');
             if($archivo)
             {
                 while(!feof($archivo)){
                     $auxObj=json_decode(fgets($archivo),true);
                     if($auxObj!=null){
-                        $auxPizza=new Pizza($auxObj['_id'],$auxObj['_sabor'],$auxObj['_tipo'],$auxObj['_precio'],$auxObj['_cantidad']);
+                        $auxHelado=new Helado($auxObj['_id'],$auxObj['_sabor'],$auxObj['_tipo'],$auxObj['_precio'],$auxObj['_vaso'],$auxObj['_stock']);
                         #var_dump($auxPizza);
-                        $auxPizza->altaStock();
+                        $auxHelado->altaStock();
                     }
                 }
                 fclose($archivo);
